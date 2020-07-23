@@ -1,36 +1,33 @@
 package com.example.learnapp;
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
+import androidx.lifecycle.ViewModel;
 import com.example.learnapp.DataModel.UserListItemResponse;
 import com.example.learnapp.DataModel.UserListResponse;
-import com.example.learnapp.Retrofit.ApiClient;
-import com.example.learnapp.Retrofit.ApiService;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-
-public class UserListViewModel extends AndroidViewModel {
+public class UserListViewModel extends ViewModel {
     public static Integer SUCCESS = 101;
     public static Integer FAILED = 102;
     public static Integer EXCEED = 103;
+    public static Integer NODATA = 104;
 
-    private int currPage;
     private UserListModel data;
     private List<UserListItemModel> userList;
 
-    public UserListViewModel(Application application) {
-        super(application);
-        currPage = 0;
+    private int currPage;
+    private int totalPage;
+    private MutableLiveData<Integer> eventID;
+
+    public UserListViewModel() {
+        super();
+        currPage = 1;
+        totalPage = 0;
         data = new UserListModel();
+        eventID = new MutableLiveData<>();
         userList = new ArrayList<>();
     }
 
@@ -38,51 +35,54 @@ public class UserListViewModel extends AndroidViewModel {
         return data;
     }
 
-    public LiveData<Integer> requestSelectedData(){
-        final MutableLiveData<Integer> result = new MutableLiveData<>();
+    public LiveData<Integer> getEventID() {
+        return eventID;
+    }
 
-        if(currPage >= data.getTotal_pages() && currPage != 0){
-            result.postValue(EXCEED);
+    public void requestSelectedData(){
+        if(currPage > totalPage && totalPage != 0){
+            eventID.postValue(EXCEED);
         }
         else {
-            final ApiService userListService = ApiClient.getUserListService();
-            Call<UserListResponse> call = userListService.getUserList(3, ++currPage);
-
-            call.enqueue(new Callback<UserListResponse>() {
+            final Repository repo = new Repository();
+            repo.requestData(3, currPage++, new RequestHandler() {
                 @Override
-                public void onResponse(Call<UserListResponse> call, Response<UserListResponse> userListResponse) {
-                    UserListResponse response = userListResponse.body();
-
-                    if(response != null){
-                        data.setPage(response.getPage())
-                                .setPer_page(response.getPer_page())
-                                .setTotal(response.getTotal())
-                                .setTotal_pages(response.getTotal_pages());
-
-                        List<UserListItemResponse> itemResponseList = response.getData();
-                        if(itemResponseList != null){
-                            for (UserListItemResponse itemResponse:itemResponseList) {
-                                UserListItemModel itemData = new UserListItemModel()
-                                        .setId(itemResponse.getId())
-                                        .setEmail(itemResponse.getEmail())
-                                        .setFirst_name(itemResponse.getFirst_name())
-                                        .setLast_name(itemResponse.getLast_name())
-                                        .setAvatar(itemResponse.getAvatar());
-                                userList.add(itemData);
-                            }
-                            data.setUserList(userList);
-                        }
-
-                        result.postValue(SUCCESS);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserListResponse> call, Throwable t) {
-                    result.postValue(FAILED);
+                public void onResult(UserListResponse response) {
+                    handleResult(response);
                 }
             });
         }
-        return result;
+    }
+
+    private void handleResult(UserListResponse response){
+        if(response != null) {
+            data.setPage(response.getPage())
+                    .setPer_page(response.getPer_page())
+                    .setTotal(response.getTotal())
+                    .setTotal_pages(response.getTotal_pages());
+
+            List<UserListItemResponse> itemResponseList = response.getData();
+            if (itemResponseList != null) {
+                for (UserListItemResponse itemResponse : itemResponseList) {
+                    UserListItemModel itemData = new UserListItemModel()
+                            .setId(itemResponse.getId())
+                            .setEmail(itemResponse.getEmail())
+                            .setFirst_name(itemResponse.getFirst_name())
+                            .setLast_name(itemResponse.getLast_name())
+                            .setAvatar(itemResponse.getAvatar());
+                    userList.add(itemData);
+                }
+                data.setUserList(userList);
+
+                totalPage = data.getTotal_pages();
+                eventID.postValue(SUCCESS);
+            }
+            else{
+                eventID.postValue(NODATA);
+            }
+        }
+        else{
+            eventID.postValue(FAILED);
+        }
     }
 }

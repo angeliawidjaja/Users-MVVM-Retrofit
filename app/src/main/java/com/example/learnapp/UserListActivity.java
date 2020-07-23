@@ -27,20 +27,7 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        viewModel.requestSelectedData().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if(integer == viewModel.EXCEED){
-                    Toast.makeText(UserListActivity.this, "You have reached last page!", Toast.LENGTH_SHORT).show();
-                }
-                else if(integer == viewModel.FAILED){
-                    Toast.makeText(UserListActivity.this, "Failed to Request User List Data", Toast.LENGTH_SHORT).show();
-                }
-                else if(integer == viewModel.SUCCESS){
-                    adapter.setUserList(viewModel.getData().getUserList());
-                }
-            }
-        });
+        viewModel.requestSelectedData();
     }
 
     private void setAdapter(ActivityUserListBinding binding) {
@@ -54,6 +41,24 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getData();
+            }
+        });
+
+        viewModel.getEventID().observe(this, new Observer<Integer>(){
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer == viewModel.EXCEED){
+                    Toast.makeText(UserListActivity.this, "You have reached last page!", Toast.LENGTH_SHORT).show();
+                }
+                else if(integer == viewModel.NODATA){
+                    Toast.makeText(UserListActivity.this, "No User List Data!", Toast.LENGTH_SHORT).show();
+                }
+                else if(integer == viewModel.FAILED){
+                    Toast.makeText(UserListActivity.this, "Failed to Request Data!", Toast.LENGTH_SHORT).show();
+                }
+                else if(integer == viewModel.SUCCESS){
+                    adapter.setUserList(viewModel.getData().getUserList());
+                }
             }
         });
     }

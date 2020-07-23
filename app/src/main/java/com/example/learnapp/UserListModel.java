@@ -6,14 +6,11 @@ import androidx.databinding.Observable;
 import java.util.List;
 
 public class UserListModel implements Observable {
-    public static final int FINAL_PAGE = 100;
-
     protected Integer page;
     protected Integer per_page;
     protected Integer total;
     protected Integer total_pages;
     protected List<UserListItemModel> userList;
-    protected int eventId;
 
     @Bindable
     public Integer getPage() {
@@ -63,14 +60,6 @@ public class UserListModel implements Observable {
     public UserListModel setUserList(List<UserListItemModel> userList) {
         this.userList = userList;
         return this;
-    }
-
-    public int getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
     }
 
     @Override
