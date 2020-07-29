@@ -4,18 +4,18 @@ import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 
 public class UserListItemModel implements Observable {
-    protected Integer id;
+    protected String id;
     protected String email;
     protected String first_name;
     protected String last_name;
     protected String avatar;
 
     @Bindable
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public UserListItemModel setId(Integer id) {
+    public UserListItemModel setId(String id) {
         this.id = id;
         return this;
     }

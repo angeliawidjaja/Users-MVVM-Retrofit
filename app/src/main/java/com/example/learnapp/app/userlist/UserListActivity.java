@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -72,7 +71,7 @@ public class UserListActivity extends AppCompatActivity implements MainNavigator
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, UserListDetailActivity.class);
-        intent.putExtra("position", position);
+        intent.putExtra("id", viewModel.getData().getUserList().get(position).getId());
         startActivity(intent);
     }
 }

@@ -49,11 +49,11 @@ public class UserListViewModel extends ViewModel {
         }
         else {
             final Repository repo = new Repository();
-            repo.requestData(3, currPage++, new RequestHandler() {
+            repo.requestData(3, currPage++, new RequestHandler<UserListResponse>() {
 
                 @Override
-                public void onResult(Object response) {
-                    handleResult((UserListResponse) response);
+                public void onResult(UserListResponse response) {
+                    handleResult(response);
                 }
             });
         }
@@ -70,7 +70,7 @@ public class UserListViewModel extends ViewModel {
             if (itemResponseList != null) {
                 for (UserListItemResponse itemResponse : itemResponseList) {
                     UserListItemModel itemData = new UserListItemModel()
-                            .setId(itemResponse.getId())
+                            .setId(itemResponse.getId().toString())
                             .setEmail(itemResponse.getEmail())
                             .setFirst_name(itemResponse.getFirst_name())
                             .setLast_name(itemResponse.getLast_name())
