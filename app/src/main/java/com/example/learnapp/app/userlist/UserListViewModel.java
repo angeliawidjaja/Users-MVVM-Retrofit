@@ -1,10 +1,14 @@
-package com.example.learnapp;
+package com.example.learnapp.app.userlist;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.learnapp.DataModel.UserListItemResponse;
-import com.example.learnapp.DataModel.UserListResponse;
+
+import com.example.learnapp.datamodel.userlist.UserListItemResponse;
+import com.example.learnapp.datamodel.userlist.UserListResponse;
+import com.example.learnapp.repository.Repository;
+import com.example.learnapp.repository.RequestHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 

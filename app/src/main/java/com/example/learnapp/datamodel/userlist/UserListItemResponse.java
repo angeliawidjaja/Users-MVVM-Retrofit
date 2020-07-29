@@ -1,4 +1,4 @@
-package com.example.learnapp.DataModel;
+package com.example.learnapp.datamodel.userlist;
 
 import com.google.gson.annotations.SerializedName;
 

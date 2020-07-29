@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">LearnApp</string>
+    <string name="id">ID</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="space">" "</string>
+    <string name="company">Company</string>
+    <string name="url">URL</string>
+    <string name="text">Text</string>
 </resources>
 

@@ -1,8 +1,8 @@
-package com.example.learnapp;
+package com.example.learnapp.repository;
 
-import com.example.learnapp.DataModel.UserListResponse;
-import com.example.learnapp.Retrofit.ApiClient;
-import com.example.learnapp.Retrofit.ApiService;
+import com.example.learnapp.datamodel.userlist.UserListResponse;
+import com.example.learnapp.retrofit.ApiClient;
+import com.example.learnapp.retrofit.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

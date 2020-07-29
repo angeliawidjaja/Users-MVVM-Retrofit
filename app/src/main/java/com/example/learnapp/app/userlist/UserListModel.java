@@ -1,4 +1,4 @@
-package com.example.learnapp;
+package com.example.learnapp.app.userlist;
 
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;

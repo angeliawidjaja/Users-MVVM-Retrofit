@@ -1,5 +1,6 @@
-package com.example.learnapp;
+package com.example.learnapp.app.userlist;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -7,12 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.learnapp.R;
 import com.example.learnapp.databinding.UserListItemBinding;
 
 import java.util.List;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
     protected List<UserListItemModel> userList;
+    protected Context context;
+
+    public UserListAdapter(Context context) {
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -23,8 +33,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        UserListItemModel currUser = userList.get(position);
-        holder.binding.setViewmodel(currUser);
+        UserListItemModel item = userList.get(position);
+        loadAvatar(item, holder);
+        holder.binding.setModel(item);
+
+    }
+
+    private void loadAvatar(UserListItemModel item, UserViewHolder holder) {
+        Glide.with(context)
+                .load(item.getAvatar())
+                .apply(new RequestOptions().centerCrop()
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .error(R.drawable.ic_launcher_background))
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.binding.ivAvatar);
     }
 
     @Override
