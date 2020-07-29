@@ -50,9 +50,10 @@ public class UserListViewModel extends ViewModel {
         else {
             final Repository repo = new Repository();
             repo.requestData(3, currPage++, new RequestHandler() {
+
                 @Override
-                public void onResult(UserListResponse response) {
-                    handleResult(response);
+                public void onResult(Object response) {
+                    handleResult((UserListResponse) response);
                 }
             });
         }
