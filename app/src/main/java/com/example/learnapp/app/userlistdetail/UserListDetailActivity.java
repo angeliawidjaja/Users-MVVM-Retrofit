@@ -39,7 +39,6 @@ public class UserListDetailActivity extends AppCompatActivity {
                 else if(integer == viewModel.SUCCESS){
                     loadPhoto(binding);
                     binding.setViewmodel(viewModel.getUserDetailData());
-                    Toast.makeText(UserListDetailActivity.this, "Complete Providing User Detail Data", Toast.LENGTH_SHORT).show();
                 }
             }
         });
