@@ -1,7 +1,9 @@
 package com.example.learnapp.app.userlist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.learnapp.R;
+import com.example.learnapp.app.MainNavigator;
 import com.example.learnapp.databinding.UserListItemBinding;
 
 import java.util.List;
@@ -19,16 +22,18 @@ import java.util.List;
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
     protected List<UserListItemModel> userList;
     protected Context context;
+    protected MainNavigator navigator;
 
-    public UserListAdapter(Context context) {
+    public UserListAdapter(Context context, MainNavigator navigator) {
         this.context = context;
+        this.navigator = navigator;
     }
 
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         UserListItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.user_list_item, parent, false);
-        return new UserViewHolder(binding);
+        return new UserViewHolder(binding, navigator);
     }
 
     @Override
@@ -36,7 +41,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         UserListItemModel item = userList.get(position);
         loadAvatar(item, holder);
         holder.binding.setModel(item);
-
     }
 
     private void loadAvatar(UserListItemModel item, UserViewHolder holder) {
@@ -59,12 +63,21 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         notifyDataSetChanged();
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder{
+    class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private UserListItemBinding binding;
+        private MainNavigator navigator;
 
-        public UserViewHolder (@NonNull UserListItemBinding binding){
+        public UserViewHolder (@NonNull UserListItemBinding binding, MainNavigator navigator){
             super(binding.getRoot());
             this.binding = binding;
+            this.navigator = navigator;
+
+            binding.cvEmployee.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            navigator.onItemClick(getAdapterPosition());
         }
     }
 }

@@ -65,8 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/ll_user_detail"
-            android:layout_marginTop="150dp">
+            android:layout_marginBottom="25dp"
+            android:layout_alignParentBottom="true">
 
             <TextView
                 android:id="@+id/tv_company"
