@@ -69,16 +69,6 @@
             android:layout_alignParentBottom="true">
 
             <TextView
-                android:id="@+id/tv_company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/company"
-                android:text="@{viewmodel.ad.company}"
-                android:textColor="@color/colorBlack"
-                android:layout_margin="8dp"
-                android:gravity="center"/>
-
-            <TextView
                 android:id="@+id/tv_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -80,7 +80,8 @@ public class UserListViewModel extends ViewModel {
                 data.setUserList(userList);
 
                 totalPage = data.getTotal_pages();
-                eventID.postValue(SUCCESS);
+                if(currPage > totalPage) eventID.postValue(EXCEED);
+                else eventID.postValue(SUCCESS);
             }
             else{
                 eventID.postValue(NODATA);

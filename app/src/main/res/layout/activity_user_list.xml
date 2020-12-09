@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimary"
             android:text="LOAD MORE"
             android:textStyle="bold"/>
 

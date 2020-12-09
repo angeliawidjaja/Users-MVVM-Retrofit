@@ -4,19 +4,8 @@ import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 
 public class AdModel implements Observable {
-    protected String company;
     protected String url;
     protected String text;
-
-    @Bindable
-    public String getCompany() {
-        return company;
-    }
-
-    public AdModel setCompany(String company) {
-        this.company = company;
-        return this;
-    }
 
     @Bindable
     public String getUrl() {

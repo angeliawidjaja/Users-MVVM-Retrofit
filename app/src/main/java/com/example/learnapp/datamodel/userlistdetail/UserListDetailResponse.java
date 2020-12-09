@@ -6,14 +6,14 @@ import com.google.gson.annotations.SerializedName;
 public class UserListDetailResponse {
     @SerializedName("data")
     UserListItemResponse data;
-    @SerializedName("ad")
-    AdResponse ad;
+    @SerializedName("support")
+    AdResponse support;
 
     public UserListItemResponse getData() {
         return data;
     }
 
-    public AdResponse getAd() {
-        return ad;
+    public AdResponse getSupport() {
+        return support;
     }
 }

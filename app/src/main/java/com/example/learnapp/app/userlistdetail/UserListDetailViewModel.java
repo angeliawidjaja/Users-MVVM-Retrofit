@@ -44,7 +44,7 @@ public class UserListDetailViewModel extends ViewModel {
 
     private void handleResult(UserListDetailResponse response){
         if(response != null) {
-            if(response.getData() != null && response.getAd() != null){
+            if(response.getData() != null && response.getSupport() != null){
                 UserListItemResponse itemUserResponse = response.getData();
                 UserListItemModel itemModel = new UserListItemModel()
                         .setId(itemUserResponse.getId().toString())
@@ -54,9 +54,8 @@ public class UserListDetailViewModel extends ViewModel {
                         .setAvatar(itemUserResponse.getAvatar());
                 userDetailData.setData(itemModel);
 
-                AdResponse adResponse = response.getAd();
+                AdResponse adResponse = response.getSupport();
                 AdModel adModel = new AdModel()
-                        .setCompany(adResponse.getCompany())
                         .setUrl(adResponse.getUrl())
                         .setText(adResponse.getText());
                 userDetailData.setAd(adModel);

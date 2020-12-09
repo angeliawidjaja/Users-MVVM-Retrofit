@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LearnApp</string>
+    <string name="app_name">Users</string>
     <string name="id">ID</string>
     <string name="name">Name</string>
     <string name="email">Email</string>

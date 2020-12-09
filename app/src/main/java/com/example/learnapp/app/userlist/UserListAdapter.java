@@ -1,7 +1,6 @@
 package com.example.learnapp.app.userlist;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.learnapp.R;
-import com.example.learnapp.app.MainNavigator;
+import com.example.learnapp.navigation.MainNavigator;
 import com.example.learnapp.databinding.UserListItemBinding;
 
 import java.util.List;
